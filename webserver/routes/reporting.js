@@ -1,4 +1,5 @@
 var services_loader = require ('../../lib/services')
+var web_config = require('../../config/web');
 
 module.exports.add_routes = function (app, storage){
   //-------------------------------
@@ -16,6 +17,7 @@ module.exports.add_routes = function (app, storage){
 
     storage.report_one(service[0], function (err, service){
       res.render('details.html', {
+        config: web_config,
         title: service.url_info,
         service: service,
         critical_events: service.data.events.filter(function(item){return item.type == 'critical';}),
@@ -28,7 +30,7 @@ module.exports.add_routes = function (app, storage){
   // List of hosts and url's
   //-------------------------------
   app.get('/', function(req, res){
-    res.render('list.html', {title: 'watchmen'});
+    res.render('list.html', {config:web_config});
   });
 
   //-------------------------------

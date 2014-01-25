@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>watchmen, http monitor for node.js - <%= title %></title>
+    <title>watchmen, http monitor for node.js - <%= config.title %></title>
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap.extra.css' />
@@ -12,7 +12,12 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container-fluid">
-        <a class="brand" href="/">watchmen</a>
+        <a class="brand" href="<%= config.brand.url %>">
+            <% if (config.brand.img) { %>
+                <img src="<%= config.brand.img %>" />
+            <% } %>
+            <%= config.brand.name %>
+        </a>
         <div class="overview" id="totals_holder"></div>
       </div>
     </div>
@@ -35,9 +40,10 @@
     <span class="total">{{disabled}}</span>
   </script>
 
+  <% if (config.googleAnalyticsId) { %>
   <script type="text/javascript">
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-300651-33']);
+    _gaq.push(['_setAccount', '<%= config.googleAnalyticsId %>']);
     _gaq.push(['_trackPageview']);
 
     (function() {
@@ -46,6 +52,7 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
+  <% } %>
 
   <script src="/js/vendor/handlebars-1.0.0.beta.6.js"></script>
   <script src="/js/vendor/moment.min.js" type="text/javascript"></script>
