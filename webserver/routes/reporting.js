@@ -1,5 +1,7 @@
 var services_loader = require ('../../lib/services');
 var moment = require('moment');
+var web_config = require('../../config/web');
+var services_loader = require ('../../lib/services')
 
 module.exports.add_routes = function (app, storage){
   //-------------------------------
@@ -17,6 +19,7 @@ module.exports.add_routes = function (app, storage){
 
     storage.report_one(service, function (err, service){
       res.render('details.html', {
+        config: web_config,
         title: service.url_info,
         service : service,
         eventsSince : moment (+new Date() - service.remove_events_older_than_seconds * 1000),
@@ -31,7 +34,7 @@ module.exports.add_routes = function (app, storage){
   // List of hosts and url's
   //-------------------------------
   app.get('/', function(req, res){
-    res.render('list.html', {title: 'watchmen'});
+    res.render('list.html', {config:web_config});
   });
 
   //-------------------------------

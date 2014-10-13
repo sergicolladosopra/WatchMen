@@ -1,13 +1,28 @@
 module.exports = {
 
   'notifications' : {
-    enabled: false, //if disabled, no notifications will be sent
-    to: ['your-email@domain.com'], //default notification list if no alert_to is specified for host or url
+    enabled: true, //if disabled, no notifications will be sent
+    to: ['youremail@email.com'], //default notification list if no alert_to is specified for host or url
+    from: 'status@email.com', 
+
     postmark : {
-      from: 'your-email@domain.com',
       api_key : 'your-postmark-key-here'
+    }, 
+
+    nodemailer: { //See https://github.com/andris9/Nodemailer
+      smtp: {
+        service: "Gmail",
+        auth: {
+          user: "user@gmail.com",
+          pass: "password"
+        }
+      },
+
+      ses: { //AWS SES config
+
+      }
     }
   },
-
+  
   remove_events_older_than_seconds : 60 * 60 * 24 * 10, // 10 days default configuration
 };

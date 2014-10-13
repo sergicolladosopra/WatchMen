@@ -1,3 +1,55 @@
+## "watchmen", Configurable Branding and leveraging Nodemailer
+
+Fork of [watchmen](https://github.com/iloire/WatchMen/)
+
+Uses [nodemailer](https://github.com/andris9/Nodemailer) for Smtp and AWS SES
+
+
+###Configure Brand
+
+```js
+//-------------------
+//config/web.js
+//-------------------
+
+//example of branding config file
+module.exports = {
+    brand: {
+        name: "My Brand",
+        url: "http://mybrand/",
+        img: "http://mybrand/small-logo.png"
+    },
+    title: "My Brand - Status",
+    googleAnalyticsId: "UI-MyBrandGoogleId"
+};
+```
+
+###Configure Nodemailer
+```js
+//-------------------
+// config/general.js
+//-------------------
+
+module.exports.notifications = {
+  enabled: false, //if disabled, no email will be sent (just console messages)
+  to: 'ivan@iloire.com',
+  postmark : {
+    from: 'ivan@iloire.com',
+    api_key : 'your-postmark-key-here'
+  },
+  nodemailer: {
+  	smtp: {
+  	  ... //nodemailer smtp config
+  	},
+  	ses: {
+  	  ... //nodemailer ses config
+  	}
+  }
+}
+```
+
+
+---
 # "watchmen", a service monitor for node.js
 
 [![Build Status](https://secure.travis-ci.org/iloire/WatchMen.png?branch=1.x)](http://travis-ci.org/iloire/WatchMen)
