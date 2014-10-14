@@ -5,17 +5,24 @@
 
 module.exports = {
 
-    enabled: true, //if disabled, no notifications will be sent
+    enabled: true, // if disabled, no notifications will be sent
 
     to: ['youremail@email.com'], //default notification list if no alert_to is specified for host or url
     from: 'status@email.com',
 
     postmark : {
+      enabled: false,
       api_key : 'your-postmark-key-here'
     },
 
-    nodemailer: { //See https://github.com/andris9/Nodemailer
+    nodemailer: { // see https://github.com/andris9/Nodemailer
+
+      enabled: true,
+
       smtp: {
+
+        enabled: true,
+
         service: "Gmail",
         auth: {
           user: "user@gmail.com",
@@ -23,9 +30,12 @@ module.exports = {
         }
       },
 
-      ses: { //AWS SES config
+      ses: { // AWS SES config
 
+        enabled: true,
+
+        accessKeyId: "XX",
+        secretAccessKey: "YY"
       }
     }
-
 };
