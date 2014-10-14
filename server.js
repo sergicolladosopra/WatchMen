@@ -2,15 +2,11 @@ var config = require('./config/general');
 var email_service = require ('./lib/notifications/email/email');
 var services = require('./lib/services').load_services();
 
-//----------------------------------------------------
-// Fetch storage
-//----------------------------------------------------
+// Configure storage
 var storage_factory = require('./lib/storage/storage_factory');
 var storage = storage_factory.get_storage_instance();
 
-//----------------------------------------------------
 // Create watchmen instance
-//----------------------------------------------------
 var WatchMen = require('./lib/watchmen');
 var watchmen = new WatchMen(services, storage);
 
@@ -66,9 +62,6 @@ watchmen.on('service_ok', function(service, state) {
   */
 });
 
-//----------------------------------------------------
-// Start watchmen
-//----------------------------------------------------
 watchmen.start();
 
 //----------------------------------------------------
@@ -80,9 +73,9 @@ watchmen.start();
 // in the same process:
 // require('./webserver/app');
 
-//----------------------------------------------------
+
 // Error handling
-//----------------------------------------------------
+
 process.on('uncaughtException', function(err) {
   console.error('uncaughtException:');
   console.error(err);

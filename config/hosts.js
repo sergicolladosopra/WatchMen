@@ -2,6 +2,11 @@ var one_tick = 20; //seconds
 
 //service name must be unique for a certain host.
 //host name must be unique
+/**
+ * This is the service configuration file
+ * Note: service name must be unique for a certain host. Host name must be unique
+ */
+
 module.exports =
   [
     {

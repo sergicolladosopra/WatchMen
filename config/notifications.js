@@ -1,3 +1,8 @@
+
+/**
+ * Notifications configuration
+ */
+
 module.exports = {
 
     enabled: true, //if disabled, no notifications will be sent

@@ -1,3 +1,8 @@
+
+/**
+ * Storage configuration
+ */
+
 module.exports = {
 
   //---------------------------
