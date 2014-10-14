@@ -1,11 +1,10 @@
-var one_tick = 20; //seconds
 
-//service name must be unique for a certain host.
-//host name must be unique
 /**
  * This is the service configuration file
  * Note: service name must be unique for a certain host. Host name must be unique
  */
+
+var one_tick = 60; //seconds
 
 module.exports =
   [
@@ -15,8 +14,8 @@ module.exports =
       port: 465,
       ping_service_name: 'smtp',
       timeout:10000,
-      ping_interval: one_tick, //seconds
-      failed_ping_interval: one_tick / 3, //seconds
+      ping_interval: one_tick,
+      failed_ping_interval: one_tick / 3,
       enabled: true,
       alert_to: ['your-email@domain.com'],
       warning_if_takes_more_than: 1500, //miliseconds
@@ -34,8 +33,8 @@ module.exports =
       protocol: 'https',
       ping_service_name: 'http',
       timeout:10000,
-      ping_interval: one_tick, //seconds
-      failed_ping_interval: one_tick / 3, //seconds
+      ping_interval: one_tick,
+      failed_ping_interval: one_tick / 3,
       enabled: true,
       alert_to: ['your-email@domain.com'],
       warning_if_takes_more_than: 1500, //miliseconds
@@ -54,8 +53,8 @@ module.exports =
       port:80,
       ping_service_name: 'http',
       timeout:10000,
-      ping_interval: one_tick, //seconds
-      failed_ping_interval: one_tick / 3, //seconds
+      ping_interval: one_tick,
+      failed_ping_interval: one_tick / 3,
       enabled: true,
       alert_to: ['your-email@domain.com'],
       warning_if_takes_more_than: 1500, //miliseconds
