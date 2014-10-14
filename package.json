@@ -28,7 +28,8 @@
     "express": "2.5.x",
     "forever": "0.11.x",
     "moment": "2.8.x",
-    "redis": "0.12.x"
+    "redis": "0.12.x",
+    "nodemailer": "~0.6.0"
   },
   "devDependencies": {
     "assert": "0.4.x",
