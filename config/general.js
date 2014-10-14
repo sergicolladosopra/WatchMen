@@ -3,7 +3,8 @@
  * General configuration
  */
 
+var secondsPerDay = 60 * 60 * 24;
+
 module.exports = {
-  notifications : require('./notifications'),
-  remove_events_older_than_seconds : 60 * 60 * 24 * 10, // 10 days default configuration
+  remove_events_older_than_seconds : secondsPerDay * 10, // how old service events are kept. This can be overriden on per service basis (hosts.js)
 };

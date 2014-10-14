@@ -1,4 +1,5 @@
-var config = require('./config/general');
+
+var notificationsConfig = require('./config/notifications');
 var email_service = require ('./lib/notifications/email/email');
 var services = require('./lib/services').load_services();
 
@@ -23,7 +24,7 @@ watchmen.on('service_error', function(service, state) {
 
   console.log (info);
 
-  if (state.prev_state.status === 'success' && config.notifications.enabled) {
+  if (state.prev_state.status === 'success' && notificationsConfig.enabled) {
     email_service.sendEmail(
         service.alert_to,
         service.url_info + ' is down!',
@@ -44,7 +45,7 @@ watchmen.on('service_warning', function(service, state) {
 });
 
 watchmen.on('service_back', function(service, state) {
-  if (config.notifications.enabled){
+  if (notificationsConfig.enabled){
     email_service.sendEmail(
         service.alert_to,
         service.url_info + ' is back!',
@@ -67,8 +68,6 @@ watchmen.start();
 //----------------------------------------------------
 // Web server
 //----------------------------------------------------
-// You can launch the webserver in a separate process by doing:  node webserver/app.js
-//  - or - 
 // you can just uncomment the following line to launch both the monitor and the web server 
 // in the same process:
 // require('./webserver/app');
