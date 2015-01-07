@@ -49,12 +49,8 @@ watchmen.on('service_error', function(service, state) {
 
 watchmen.on('service_warning', function(service, state) {
 
-  /*
-  //Do here any additional stuff when you get a warning
-
-  console.log (service.url_info + ' WARNING (' + state.elapsed_time + ' ms, avg: '
-      + state.avg_response_time + ') ## ' + state.warnings + ' warnings');
-  */
+  console.log (service.url_info + ' WARNING (' + state.elapsed_time + ' ms, avg: '+
+      state.avg_response_time + ') ## ' + state.warnings + ' warnings');
 
 });
 
