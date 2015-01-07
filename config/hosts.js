@@ -10,6 +10,7 @@ module.exports = [{
     timeout: 10000,
     ping_interval: one_tick,
     failed_ping_interval: one_tick / 3,
+    warning_if_takes_more_than: 700,
     enabled: true,
     services: [{
             name: 'productDetail',
