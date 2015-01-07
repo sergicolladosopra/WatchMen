@@ -33,6 +33,17 @@ watchmen.on('service_error', function(service, state) {
         service.url_info + ' is down!',
         service.url_info + ' is down!. Reason: ' + state.error
     );
+    var exec = require('child_process').exec,
+        child;
+
+    child = exec('forever stopall; forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/; exit;',
+        function(error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+                console.log('exec error: ' + error);
+            }
+        });
   }
 });
 
@@ -75,8 +86,8 @@ watchmen.start();
 // Web server
 //----------------------------------------------------
 // You can launch the webserver in a separate process by doing:  node webserver/app.js
-//  - or - 
-// you can just uncomment the following line to launch both the monitor and the web server 
+//  - or -
+// you can just uncomment the following line to launch both the monitor and the web server
 // in the same process:
 // require('./webserver/app');
 
