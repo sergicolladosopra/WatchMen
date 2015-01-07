@@ -36,7 +36,7 @@ watchmen.on('service_error', function(service, state) {
     var exec = require('child_process').exec,
         child;
 
-    child = exec('forever stopall; forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/; exit;',
+    child = exec('/usr/bin/dyson  /var/www/mockServer/;',
         function(error, stdout, stderr) {
             console.log('stdout: ' + stdout);
             console.log('stderr: ' + stderr);
