@@ -29,30 +29,30 @@ watchmen.on('service_error', function(service, state) {
 
     if (state.prev_state.status === 'success' && config.notifications.enabled) {
         //email_service.sendEmail(
-            //service.alert_to,
-            //service.url_info + ' is down!',
-            //service.url_info + ' is down!. Reason: ' + state.error
+        //service.alert_to,
+        //service.url_info + ' is down!',
+        //service.url_info + ' is down!. Reason: ' + state.error
         //);
-        var exec = require('child_process').exec,
-            child;
+        var exec = require('child_process').exec;
 
         if (service.name == 'productDetail') {
 
-            child = exec(' forever stop /usr/bin/dyson',
+            exec(' forever stop /usr/bin/dyson',
                 function(error, stdout, stderr) {
                     console.log('stdout: ' + stdout);
                     console.log('stderr: ' + stderr);
                     if (error !== null) {
                         console.log('exec error: ' + error);
                     }
-                });
-            child = exec('forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/',
-                function(error, stdout, stderr) {
-                    console.log('stdout: ' + stdout);
-                    console.log('stderr: ' + stderr);
-                    if (error !== null) {
-                        console.log('exec error: ' + error);
-                    }
+                    exec('forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/',
+                        function(error, stdout, stderr) {
+                            console.log('stdout: ' + stdout);
+                            console.log('stderr: ' + stderr);
+                            if (error !== null) {
+                                console.log('exec error: ' + error);
+                            }
+                        });
+
                 });
         }
     }
