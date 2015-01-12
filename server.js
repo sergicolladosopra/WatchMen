@@ -1,5 +1,5 @@
 var config = require('./config/general');
-var email_service = require ('./lib/notifications/email/email');
+var email_service = require('./lib/notifications/email/email');
 var services = require('./lib/services').load_services();
 
 //----------------------------------------------------
@@ -19,58 +19,61 @@ var watchmen = new WatchMen(services, storage);
 //----------------------------------------------------
 watchmen.on('service_error', function(service, state) {
 
-  /*
-  //Do here any additional stuff when you get an error
-  */
-  var info = service.url_info + ' down!. Error: ' + state.error + '. Retrying in ' +
-      (parseInt(state.next_attempt_secs, 10) / 60) + ' minute(s)..';
+    /*
+    //Do here any additional stuff when you get an error
+    */
+    var info = service.url_info + ' down!. Error: ' + state.error + '. Retrying in ' +
+        (parseInt(state.next_attempt_secs, 10) / 60) + ' minute(s)..';
 
-  console.log (info);
+    console.log(info);
 
-  if (state.prev_state.status === 'success' && config.notifications.enabled) {
-    email_service.sendEmail(
-        service.alert_to,
-        service.url_info + ' is down!',
-        service.url_info + ' is down!. Reason: ' + state.error
-    );
-    var exec = require('child_process').exec,
-        child;
+    if (state.prev_state.status === 'success' && config.notifications.enabled) {
+        email_service.sendEmail(
+            service.alert_to,
+            service.url_info + ' is down!',
+            service.url_info + ' is down!. Reason: ' + state.error
+        );
+        var exec = require('child_process').exec,
+            child;
 
-    child = exec(' forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/',
-        function(error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
-            if (error !== null) {
-                console.log('exec error: ' + error);
-            }
-        });
-  }
+        if (service.mame == 'productDetail') {
+            child = exec(' forever stop /usr/bin/dyson | forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/',
+                function(error, stdout, stderr) {
+                    console.log('stdout: ' + stdout);
+                    console.log('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                });
+
+        }
+    }
 });
 
 watchmen.on('service_warning', function(service, state) {
 
-  console.log (service.url_info + ' WARNING (' + state.elapsed_time + ' ms, avg: '+
-      state.avg_response_time + ') ## ' + state.warnings + ' warnings');
+    console.log(service.url_info + ' WARNING (' + state.elapsed_time + ' ms, avg: ' +
+        state.avg_response_time + ') ## ' + state.warnings + ' warnings');
 
 });
 
 watchmen.on('service_back', function(service, state) {
-  if (config.notifications.enabled){
-    email_service.sendEmail(
-        service.alert_to,
-        service.url_info + ' is back!',
-        service.url_info + ' ' +  service.msg
-    );
-  }
+    if (config.notifications.enabled) {
+        email_service.sendEmail(
+            service.alert_to,
+            service.url_info + ' is back!',
+            service.url_info + ' ' + service.msg
+        );
+    }
 });
 
 watchmen.on('service_ok', function(service, state) {
-  /*
-  //Do here any additional stuff when you get a successful response
+    /*
+    //Do here any additional stuff when you get a successful response
 
-  console.log (service.url_info + ' responded OK! (' + state.elapsed_time + ' milliseconds, avg: '
-      + state.avg_response_time + ')');
-  */
+    console.log (service.url_info + ' responded OK! (' + state.elapsed_time + ' milliseconds, avg: '
+        + state.avg_response_time + ')');
+    */
 });
 
 //----------------------------------------------------
@@ -91,12 +94,12 @@ watchmen.start();
 // Error handling
 //----------------------------------------------------
 process.on('uncaughtException', function(err) {
-  console.error('uncaughtException:');
-  console.error(err);
+    console.error('uncaughtException:');
+    console.error(err);
 });
 
-process.on('SIGINT', function () {
-  console.log('stopping watchmen..');
-  storage.quit();
-  process.exit(0);
+process.on('SIGINT', function() {
+    console.log('stopping watchmen..');
+    storage.quit();
+    process.exit(0);
 });
