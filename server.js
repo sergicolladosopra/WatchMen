@@ -28,16 +28,17 @@ watchmen.on('service_error', function(service, state) {
     console.log(info);
 
     if (state.prev_state.status === 'success' && config.notifications.enabled) {
-        email_service.sendEmail(
-            service.alert_to,
-            service.url_info + ' is down!',
-            service.url_info + ' is down!. Reason: ' + state.error
-        );
+        //email_service.sendEmail(
+            //service.alert_to,
+            //service.url_info + ' is down!',
+            //service.url_info + ' is down!. Reason: ' + state.error
+        //);
         var exec = require('child_process').exec,
             child;
 
-        if (service.mame == 'productDetail') {
-            child = exec(' forever stop /usr/bin/dyson | forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/',
+        if (service.name == 'productDetail') {
+
+            child = exec(' forever stop /usr/bin/dyson',
                 function(error, stdout, stderr) {
                     console.log('stdout: ' + stdout);
                     console.log('stderr: ' + stderr);
@@ -45,7 +46,14 @@ watchmen.on('service_error', function(service, state) {
                         console.log('exec error: ' + error);
                     }
                 });
-
+            child = exec('forever start -l /var/www/html/logs/forever.log -a  /usr/bin/dyson  /var/www/mockServer/',
+                function(error, stdout, stderr) {
+                    console.log('stdout: ' + stdout);
+                    console.log('stderr: ' + stderr);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                });
         }
     }
 });
